@@ -56,6 +56,8 @@ I used a combination of color and gradient thresholds to generate a binary image
 The code for my perspective transform includes a function called `warp_image()`, which appears in the 5th cell (as function) and the 8th cell as caller.  The `warp_image()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  
 I choose the source and destination points by finding for points of the lanes in straight line image and then warp it into a square destination. I chose the hardcode the source and destination points in the following manner:
 
+<img src="output_images/testimage_warped_straight.png">
+
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
 | 264, 686      | 200, 720        | 
@@ -65,14 +67,14 @@ I choose the source and destination points by finding for points of the lanes in
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-<img src="output_images/testimage_warped_straight.png">
+<img src="output_images/testimage_warped.png">
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 My code to identify lane line pixel is in thefunction search_and_fit_lane_lines() in the 5th code cell.
 
 i) First take a histogram along all the columns in the lower half of the image like this:
-<img src="output_images/histogram.png">
+<img src="output_images/histogram.png"></br>
 ii)  I add up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines. I use that as a starting point for where to search for the lines. From that point, I use a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame.
 
 iii) I fit second order polynomial using np.polyfit()on the nonezeros left and right lanes.
