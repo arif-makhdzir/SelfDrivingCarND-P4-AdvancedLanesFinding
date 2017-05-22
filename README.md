@@ -16,16 +16,6 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-[//]: # (Image References)
-
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
-
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -44,14 +34,14 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
-![alt text][image1]
+<img src="output_images/chessboard_undistort.png">
 
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+<img src="output_images/testimage_undistort.png">
 
 Using cv2.undistort() function with camera matrix and distant co-efficient calculated in the camera calibration part above
 
@@ -59,7 +49,7 @@ Using cv2.undistort() function with camera matrix and distant co-efficient calcu
 
 I used a combination of color and gradient thresholds to generate a binary image (thresholding steps are in the 1st line of the 5th code cell in `examples.ipynb`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
-![alt text][image3]
+<img src="output_images/testimage_treshold.png">
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -89,20 +79,20 @@ This resulted in the following source and destination points:
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+<img src="output_images/testimage_warped_straight.png">
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 My code to identify lane line pixel is in thefunction search_and_fit_lane_lines() in the 5th code cell.
 
 i) First take a histogram along all the columns in the lower half of the image like this:
-
+<img src="output_images/histogram.png">
 ii)  I add up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines. I use that as a starting point for where to search for the lines. From that point, I use a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame.
 
 iii) I fit second order polynomial using np.polyfit()on the nonezeros left and right lanes.
 
 
-![alt text][image5]
+<img src="output_images/testimage_linefitted.png">
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -112,7 +102,7 @@ For the radius of curvature I follow the instruction and sample code given in th
 
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
-![alt text][image6]
+<img src="output_images/testimage_curvature.png">
 
 ---
 
