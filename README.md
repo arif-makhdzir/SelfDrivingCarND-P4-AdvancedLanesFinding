@@ -54,7 +54,7 @@ I used a combination of color and gradient thresholds to generate a binary image
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes a function called `warp_image()`, which appears in the 5th cell (as function) and the 8th cell as caller.  The `warp_image()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  
-I choose the source and destination points by finding for points of the lanes in straight line image and then warp it into a square destination. I chose the hardcode the source and destination points in the following manner:
+I choose the source and destination points by finding four points of the lanes in straight line image and then warp it into a square destination. I chose the hardcode the source and destination points in the following manner:
 
 <img src="output_images/testimage_warped_straight.png">
 
